@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dasbor Informasi Kelas Digital yang terstruktur, sistematis, dan modern.">
+    <meta name="author" content="Kelas Digital">
+    <title>Dasbor Informasi Kelas Modern</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header class="navbar" role="banner">
+        <div class="logo-area">
+            <span class="logo-text">🎓 INFO KELAS DIGITAL</span>
+        </div>
+        
+        <nav class="nav-links" aria-label="Aksi Utama">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle mode terang/gelap" title="Mode Terang/Gelap">
+                <i class="fas fa-sun"></i> <span class="fw-medium">Mode</span>
+            </button>
+            
+            <button id="notification-btn" class="nav-link notification-btn" aria-controls="notification-modal" aria-expanded="false" title="Notifikasi">
+                <i class="fas fa-bell"></i> <span class="fw-medium">Notifikasi (<span id="notification-count" class="fw-bold text-primary">2</span>)</span>
+            </button>
+            
+            <a href="#" class="logout-btn action-btn" role="button" title="Keluar">
+                <i class="fas fa-sign-out-alt"></i> <span class="fw-medium">Keluar</span>
+            </a>
+        </nav>
+    </header>
+
+    <div class="main-wrapper">
+        
+        <aside class="sidebar">
+            <div class="logo-sidebar">
+                <span class="logo-text"></span>
+            </div>
+            <nav class="sidebar-nav" role="navigation" aria-label="Navigasi Utama Aplikasi">
+                <a href="#dashboard" class="nav-item active" data-page="dashboard" aria-current="page" title="Dasbor">
+                    <i class="fas fa-home"></i> Dasbor
+                </a>
+                <a href="#materi" class="nav-item" data-page="materi" title="Materi Pembelajaran">
+                    <i class="fas fa-book-open"></i> Materi Pembelajaran
+                </a>
+                <a href="#tugas" class="nav-item" data-page="tugas" title="Daftar Tugas">
+                    <i class="fas fa-clipboard-check"></i> Daftar Tugas
+                </a>
+                <a href="#jadwal" class="nav-item" data-page="jadwal" title="Jadwal Kelas & Piket">
+                    <i class="fas fa-calendar-alt"></i> Jadwal Kelas
+                </a>
+                <a href="#nilai" class="nav-item" data-page="nilai" title="Peringkat & Nilai">
+                    <i class="fas fa-trophy"></i> Peringkat Kelas
+                </a>
+                <a href="#forum" class="nav-item" data-page="forum" title="Forum Diskusi">
+                    <i class="fas fa-users"></i> Forum Diskusi
+                </a>
+            </nav>
+        </aside>
+
+        <main class="content-area" role="main">
+
+            <section id="dashboard-content" class="content-section active" aria-labelledby="dashboard-title">
+                <h2 id="dashboard-title">Selamat Datang!</h2>
+
+                <div class="stats-grid">
+                    <article class="stat-card primary shadow-hover" role="status">
+                        <i class="fas fa-chart-line stat-icon"></i>
+                        <span class="stat-value">Kelas XA</span>
+                        <p class="stat-label text-small fw-medium">Kelas Aktif</p>
+                    </article>
+                    <article class="stat-card warning shadow-hover" role="alert">
+                        <i class="fas fa-hourglass-half stat-icon"></i>
+                        <span class="stat-value" id="urgent-task-count">1</span>
+                        <p class="stat-label fw-medium">Tugas Mendesak</p>
+                    </article>
+                    <article class="stat-card success shadow-hover" role="status">
+                        <i class="fas fa-users stat-icon"></i>
+                        <span class="stat-value">35</span>
+                        <p class="stat-label fw-medium">Total Anggota</p>
+                    </article>
+                </div>
+
+                <div class="content-box">
+                    <h3><i class="fas fa-calendar-check text-primary"></i> Tugas Terbaru</h3>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Judul Tugas</th>
+                                    <th>Batas Waktu</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="task-table-body-dashboard">
+                                <tr>
+                                    <td>Bahasa Inggris</td>
+                                    <td>Tugas Surat Formal & Non Formal</td>
+                                    <td><span class="text-danger fw-semi-bold">24 Okt 2025</span></td>
+                                    <td><span class="status-badge status-danger text-tiny fw-bold">BELUM</span></td>
+                                    <td><button class="action-btn secondary text-tiny view-task-btn" data-task-id="eng001">Lihat</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Sejarah</td>
+                                    <td>Rangkuman Video Sejarah Jepang</td>
+                                    <td><span class="text-secondary fw-semi-bold">30 Okt 2025</span></td>
+                                    <td><span class="status-badge status-danger text-tiny fw-bold">BELUM</span></td>
+                                    <td><button class="action-btn secondary text-tiny view-task-btn" data-task-id="hist002">Lihat</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="content-box announcement-box" role="region" aria-labelledby="announcement-title">
+                    <h3 id="announcement-title" class="fw-extra-bold"><i class="fas fa-bullhorn text-warning"></i> Pengumuman Terbaru</h3>
+                    <p class="text-secondary text-small mt-sm fw-medium">Kepada
+Yth. Bapak/Ibu Wali Kelas
+XI TKJ 1 dan XI TKJ 2
+SMK Negeri 2 Kalianda
+di Tempat
+
+Dengan hormat,
+
+Sehubungan dengan program kegiatan sekolah pada Kompetensi Keahlian Teknik Komputer dan Jaringan (TKJ), bersama ini kami informasikan bahwa pelaksanaan Praktek Kerja Lapangan (PKL) untuk siswa kelas XI akan dilaksanakan pada:
+
+Tanggal : 2 Februari 2026 s.d. 29 Mei 2026
+Sehubungan dengan hal tersebut, kami mengharapkan kepada seluruh siswa kelas XI TKJ 1 dan XI TKJ 2 untuk segera mencari tempat Praktek Kerja Lapangan (PKL) mulai hari ini, agar proses administrasi dan persiapan dapat berjalan dengan baik dan tepat waktu.
+
+Kami juga mohon kepada Wali Kelas XI TKJ 1 dan XI TKJ 2 untuk menyampaikan informasi ini kepada seluruh siswa di kelas masing-masing.
+Demikian surat pemberitahuan ini kami sampaikan. Atas perhatian dan kerja sama Bapak/Ibu, kami ucapkan terima kasih.
+
+Kalianda, 23 Oktober 2025
+Kepala Program Keahlian 
+Teknik Jaringan Komputer dan Telekomunikasi (TJKT)
+
+SUTRISNO,S.Kom
+NIP. 19761010 200902 1 001</p>
+                </div>
+            </section>
+            
+            <section id="materi-content" class="content-section" style="display: none;" aria-labelledby="materi-title">
+                <h2 id="materi-title">📚 Materi Pembelajaran</h2>
+                <div class="content-controls d-flex gap-md mb-lg">
+                    <input type="search" id="materi-search" placeholder="Cari Materi..." class="action-input" disabled>
+                    <select id="materi-filter" class="action-input" disabled>
+                        <option value="all">Semua Mata Pelajaran</option>
+                        <option value="math">Matematika</option>
+                        <option value="ipa">IPA</option>
+                    </select>
+                    <a href="#" class="action-btn secondary" role="button" disabled><i class="fas fa-plus"></i> Tambah</a>
+                </div>
+                
+                <div class="content-box text-center p-xl">
+                    <i class="fas fa-hourglass-half text-warning mb-md" style="font-size: 3rem;"></i>
+                    <h3 class="text-warning fw-extra-bold">Area Materi Sedang Dalam Pembaruan</h3>
+                    <p class="text-small text-muted mt-sm fw-medium">Konten materi sedang diinput dan disusun secara sistematis. Mohon periksa kembali secara berkala.</p>
+                </div>
+            </section>
+
+            <section id="tugas-content" class="content-section" style="display: none;" aria-labelledby="tugas-title">
+                <h2 id="tugas-title">📝 Daftar Tugas</h2>
+                <div class="content-box">
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Judul Tugas</th>
+                                    <th>Batas Waktu</th>
+                                    <th>Status</th>
+                                    <th>Rincian Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="task-table-body">
+                                <tr>
+                                    <td>001</td>
+                                    <td>Bahasa Inggris</td>
+                                    <td>Tugas Surat Formal & Non Formal</td>
+                                    <td><span class="text-danger fw-semi-bold">24 Okt 2025</span></td>
+                                    <td><span class="status-badge status-danger text-tiny fw-bold">BELUM</span></td>
+                                    <td><button class="action-btn text-tiny view-task-btn" data-task-id="eng001">Lihat Detail</button></td>
+                                </tr>
+                                <tr>
+                                    <td>002</td>
+                                    <td>Sejarah</td>
+                                    <td>Rangkuman Video Sejarah Jepang</td>
+                                    <td><span class="text-secondary fw-semi-bold">30 Okt 2025</span></td>
+                                    <td><span class="status-badge status-danger text-tiny fw-bold">BELUM</span></td>
+                                    <td><button class="action-btn text-tiny view-task-btn" data-task-id="hist002">Lihat Detail</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="jadwal-content" class="content-section" style="display: none;" aria-labelledby="jadwal-title">
+                <h2 id="jadwal-title">🗓️ Jadwal Kelas</h2>
+                
+                <div class="content-box mb-xl p-lg"> 
+                    <header class="text-center mb-md">
+                        <h3 class="text-primary fw-extra-bold">JADWAL PELAJARAN</h3>
+                        <p class="text-center text-muted text-small">Kelas XI TKJ 1</p>
+                    </header>
+                    
+                    <div class="stats-grid mt-lg">
+                        
+                        <article class="stat-card primary shadow-hover text-center">
+                            <h4 class="fw-bold mb-sm">SENIN</h4>
+                            <ul class="text-small fw-medium">
+                                <li>TKJ (Pak Sutris)</li>
+                                <li>TKJ (Pak Kurniawan)</li>
+                            </ul>
+                        </article>
+                        
+                        <article class="stat-card success shadow-hover text-center">
+                            <h4 class="fw-bold mb-sm">SELASA</h4>
+                            <ul class="text-small fw-medium">
+                                <li>TKJ (Pak Kurniawan)</li>
+                                <li>TKJ (Pak Ujang)</li>
+                                <li>TKJ (Pak Efendi)</li>
+                            </ul>
+                        </article>
+                        
+                        <article class="stat-card warning shadow-hover text-center"> 
+                            <h4 class="fw-bold mb-sm">RABU</h4>
+                            <ul class="text-small fw-medium">
+                                <li>TKJ (Pak Efendi)</li>
+                                <li>B. Inggris (Pak Dian)</li>
+                                <li>PAI (Umi Nisa)</li>
+                            </ul>
+                        </article>
+                        
+                        <article class="stat-card primary shadow-hover text-center">
+                            <h4 class="fw-bold mb-sm">KAMIS</h4>
+                            <ul class="text-small fw-medium">
+                                <li>PKN (Bu Haryati)</li>
+                                <li>Sejarah (Bu Laili)</li>
+                                <li>MAPIL (Pak Gani)</li>
+                                <li>B. Indo (Bu Mimi)</li>
+                            </ul>
+                        </article>
+                        
+                        <article class="stat-card success shadow-hover text-center">
+                            <h4 class="fw-bold mb-sm">JUMAT</h4>
+                            <ul class="text-small fw-medium">
+                                <li>PJOK (Pak Sumadi)</li>
+                                <li>B. Lampung (Bu Nisa)</li>
+                                <li>MTK (Pak Suhemi)</li>
+                                <li>PAK (Bu Lasmiyati)</li>
+                                <li>MAPIL (Pak Gani)</li>
+                                <li>BK (Bu Listianingsih)</li>
+                            </ul>
+                        </article>
+                        
+                        <div class="content-box p-lg d-flex flex-column" style="grid-column: 1 / -1;"> 
+                             <h3 class="text-primary mb-md fw-extra-bold">Jadwal Piket Kelas</h3>
+                             
+                             <div class="piket-grid stats-grid" style="margin-bottom: 0;">
+                                
+                                <article class="stat-card primary text-center p-md">
+                                    <h4 class="fw-bold mb-sm text-small">SENIN</h4>
+                                    <p class="text-tiny fw-medium">Imam, Dev, Zenpira, Ageng, Diana, Fadhl</p>
+                                </article>
+                                <article class="stat-card success text-center p-md">
+                                    <h4 class="fw-bold mb-sm text-small">SELASA</h4>
+                                    <p class="text-tiny fw-medium">Valladino, Ayra, Lezia, Hugo, Shila, Asep, Dapa, Farpi</p>
+                                </article>
+                                <article class="stat-card warning text-center p-md">
+                                    <h4 class="fw-bold mb-sm text-small">RABU</h4>
+                                    <p class="text-tiny fw-medium">Tegar, Sekar, Ameng, Heru, Mila, Raka, Andre</p>
+                                </article>
+                                <article class="stat-card primary text-center p-md">
+                                    <h4 class="fw-bold mb-sm text-small">KAMIS</h4>
+                                    <p class="text-tiny fw-medium">Haikal, Haidar, Sila, Bella, Riswar, Wahyu, Ziya</p>
+                                </article>
+                                <article class="stat-card info text-center p-md" style="grid-column: span 2 / auto;"> 
+                                    <h4 class="fw-bold mb-sm text-small">JUMAT</h4>
+                                    <p class="text-tiny fw-medium">Habil, Elina, Almira, Mastuni, Fatih, Dafi, Nurkholis, Yoda</p>
+                                </article>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="nilai-content" class="content-section" style="display: none;" aria-labelledby="nilai-title">
+                <h2 id="nilai-title">👑 Peringkat Kelas</h2>
+                
+                <div class="content-box text-center p-xl">
+                    <i class="fas fa-chart-bar text-warning mb-md" style="font-size: 3rem;"></i>
+                    <h3 class="text-warning fw-extra-bold">Data Peringkat Sedang Diinput</h3>
+                    <p class="text-small text-muted mt-sm fw-medium">Penghitungan dan input data peringkat siswa sedang diproses oleh Wali Kelas. Data terbaru akan segera ditampilkan di sini.</p>
+                </div>
+            </section>
+
+            <section id="forum-content" class="content-section" style="display: none;" aria-labelledby="forum-title">
+                <h2 id="forum-title">💬 Forum Diskusi</h2>
+                <div class="content-box">
+                    <h3 class="text-secondary fw-extra-bold">Area ini masih dalam pengembangan.</h3>
+                    <p class="text-small text-muted mt-sm fw-medium">Di masa depan, ini akan menjadi pusat komunikasi kelas.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="notification-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none;">
+        <div class="modal-content">
+            <h3 id="modal-title" class="fw-extra-bold">Pusat Notifikasi</h3>
+            <button class="close-btn" aria-label="Tutup notifikasi">&times;</button>
+            <div class="notification-list mt-md" id="notification-list">
+                <p class="d-flex align-center gap-sm fw-semi-bold text-danger"><i class="fas fa-exclamation-circle text-danger"></i> Tugas Bahasa Inggris (*deadline* 24 Okt) akan segera jatuh tempo!</p>
+                <p class="d-flex align-center gap-sm text-secondary mt-sm fw-medium"><i class="fas fa-video text-primary"></i> Tugas merangkum video Sejarah telah ditambahkan.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

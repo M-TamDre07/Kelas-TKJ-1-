@@ -1,0 +1,596 @@
+/* ==================================================================== */
+/* 1. VARIABEL SISTEM, RESET & UTILITY BARU (PREMIUM SPACING & SHADOWS) */
+/* ==================================================================== */
+
+/* Penambahan Font Inter dari Google Fonts (Integrasi) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    /* --- Z-INDEX & AKSESIBILITAS --- */
+    --z-header: 1020;
+    --z-sidebar: 1010;
+    --z-modal: 1040;
+    --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Kurva transisi material */
+    
+    /* --- Skema Warna Aksi --- */
+    --color-primary: #007bff;     /* Biru Aksi */
+    --color-secondary: #6c757d;    /* Abu-abu Sekunder */
+    --color-success: #28a745;      /* Hijau */
+    --color-warning: #ffc107;      /* Kuning */
+    --color-danger: #dc3545;       /* Merah */
+    --color-info: #17a2b8;         /* Biru Muda Baru */
+    
+    /* --- Variabel Tema Terang (Default) --- */
+    --bg-main: #f4f7f9;           /* Latar yang sangat lembut */
+    --bg-content: #ffffff;
+    --bg-sidebar: #1f2a36;        /* Biru tua, lebih gelap, lebih elegan */
+    --text-color-primary: #212529;
+    --text-color-secondary: #6c757d;
+    --border-color: #e9ecef;      /* Garis pemisah yang halus */
+    
+    /* --- Shadow System (Modern Elevation) --- */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-base: 0 4px 15px rgba(0, 0, 0, 0.08); /* Untuk Content Box */
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+    
+    /* --- Spacing System (Berdasarkan 8pt Grid) --- */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    
+    /* --- Dimensi & Font --- */
+    --sidebar-width-md: 240px; /* Lebih lebar */
+    --sidebar-width-lg: 280px;
+    --header-height: 70px; /* Lebih tinggi untuk kesan premium */
+    --font-family: 'Inter', sans-serif;
+    --font-size-base: 1rem;
+    --font-size-small: 0.875rem;
+    --font-size-tiny: 0.75rem; 
+    --font-size-large: 1.6rem; /* Lebih besar */
+    --border-radius: 10px; /* Lebih lembut */
+    --radius-sm: 6px;
+}
+
+/* Variabel Tema Gelap (INTEGRATION - Diperbarui) */
+body.dark-mode {
+    --bg-main: #121212; /* Sangat gelap */
+    --bg-content: #1e1e1e;
+    --bg-sidebar: #111111;
+    --text-color-primary: #e0e0e0;
+    --text-color-secondary: #a0a0a0;
+    --border-color: #333333; /* Lebih gelap */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-base: 0 4px 15px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --color-warning-dark-mode: #ffc107; /* Pertahankan */
+}
+
+/* GLOBAL RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scrolling */
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    background-color: var(--bg-main);
+    color: var(--text-color-primary);
+    line-height: 1.6;
+    transition: background-color var(--transition-base), color var(--transition-base);
+    -webkit-font-smoothing: antialiased; /* Peningkatan kualitas font */
+}
+
+a { text-decoration: none; color: var(--color-primary); }
+
+/* ==================================================================== */
+/* 2. TYPOGRAPHY HIERARCHY (MODERN & ACCESSIBLE) */
+/* ==================================================================== */
+
+h1, h2, h3, h4 {
+    color: var(--text-color-primary);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.3px; /* Sedikit lebih ketat */
+}
+
+h2 {
+    font-size: 1.7rem;
+    padding-bottom: var(--space-sm);
+    margin-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-color); /* Garis pemisah lebih tipis */
+    font-weight: 800; 
+}
+h3 {
+    font-size: 1.25rem; 
+    font-weight: 700;
+}
+
+/* Text Utilitas Baru */
+.text-secondary { color: var(--text-color-secondary); }
+.text-primary { color: var(--color-primary); }
+.text-muted { color: var(--text-color-secondary); opacity: 0.9; } /* Opacity ditingkatkan */
+.text-center { text-align: center; }
+
+/* Font Weight Utilitas */
+.fw-light { font-weight: 300; }
+.fw-medium { font-weight: 500; }
+.fw-semi-bold { font-weight: 600; }
+.fw-bold { font-weight: 700; }
+.fw-extra-bold { font-weight: 800; }
+
+/* Font Size Utilitas */
+.text-small { font-size: var(--font-size-small); }
+.text-tiny { font-size: var(--font-size-tiny); } 
+
+/* ==================================================================== */
+/* 3. LAYOUT & MOBILE-FIRST STYLES (CSS GRID INTEGRATION) */
+/* ==================================================================== */
+
+.main-wrapper {
+    /* Mengganti main-container */
+    display: flex;
+    flex-direction: column; 
+    min-height: 100vh;
+}
+
+/* --- HEADER / NAVBAR (FIXED & PROFESSIONAL) --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-content);
+    height: var(--header-height); 
+    padding: 0 var(--space-md);
+    box-shadow: var(--shadow-sm); /* Bayangan lebih ringan */
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    transition: background-color var(--transition-base), box-shadow var(--transition-base);
+}
+.logo-text { 
+    font-size: 1.35rem; 
+    font-weight: 900; 
+    color: var(--color-primary); 
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+/* Tombol di Header (Diperbarui) */
+.nav-link, .logout-btn, .theme-toggle-btn {
+    border: none;
+    background: none;
+    color: var(--text-color-primary);
+    padding: var(--space-sm);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-base), color var(--transition-base);
+    line-height: 1; 
+    font-size: 0.875rem; 
+}
+.nav-link:hover, .theme-toggle-btn:hover { 
+    background-color: var(--border-color); 
+}
+.nav-link:focus-visible, .theme-toggle-btn:focus-visible { 
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+.nav-link i, .logout-btn i, .theme-toggle-btn i { 
+    margin-right: 0; 
+    font-size: 1.4rem; 
+}
+
+/* FIX: Menyembunyikan Teks Tombol di Mobile (Hanya Sisakan Ikon) */
+.nav-link span, .logout-btn span { 
+    display: none; 
+}
+
+.logout-btn {
+    background-color: var(--color-danger);
+    color: white;
+}
+.logout-btn:hover { background-color: #c82333; }
+
+
+/* --- SIDEBAR (MOBILE - Horizontal Nav) --- */
+.sidebar {
+    width: 100%;
+    height: auto;
+    background-color: var(--bg-sidebar);
+    color: white;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: var(--header-height);
+    z-index: var(--z-sidebar);
+    padding: 0;
+    transition: background-color var(--transition-base);
+}
+.profile-info { display: none; }
+.sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: var(--space-xs) var(--space-sm);
+    gap: var(--space-xs);
+    justify-content: flex-start;
+}
+.nav-item {
+    padding: var(--space-sm); 
+    font-size: var(--font-size-small); 
+    text-align: center;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    color: rgba(255, 255, 255, 0.8);
+    transition: var(--transition-base);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+.nav-item i {
+    display: block;
+    margin: 0 auto 3px;
+    font-size: 1.1rem; 
+}
+.nav-item.active { 
+    border-bottom-color: var(--color-warning); 
+    color: white;
+    background-color: rgba(0, 0, 0, 0.2); 
+}
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* KONTEN UTAMA MOBILE */
+.content-area {
+    flex-grow: 1;
+    padding: var(--space-md);
+    overflow-y: auto;
+}
+.content-controls { 
+    display: flex; 
+    flex-direction: column; 
+    gap: var(--space-md); 
+    margin-bottom: var(--space-lg);
+}
+
+
+/* ==================================================================== */
+/* 4. MEDIA QUERIES (GRID LAYOUT & DESKTOP STRUCTURE) */
+/* ==================================================================== */
+
+/* Tablet & Desktop (min-width: 768px) */
+@media (min-width: 768px) {
+    
+    /* Layout Utama Desktop (Menggunakan CSS Grid) */
+    .main-wrapper {
+        display: grid;
+        grid-template-columns: var(--sidebar-width-md) 1fr;
+        grid-template-rows: var(--header-height) 1fr;
+        grid-template-areas: 
+            "sidebar header"
+            "sidebar content";
+    }
+    
+    /* Header (Diatur di Grid Area) */
+    .navbar { 
+        grid-area: header; 
+        position: relative; /* Bukan sticky lagi di sini */
+        padding: 0 var(--space-xl);
+        box-shadow: var(--shadow-base);
+    }
+    .logo-text { display: none; } /* Logo di header hilang, hanya di sidebar */
+
+    /* Tombol Logout & Nav Link (Mengembalikan Teks di Desktop) */
+    .nav-link span, .logout-btn span { 
+        display: inline; 
+    }
+    .logout-btn i { margin-right: 5px; }
+
+    
+    /* Sidebar (Diatur di Grid Area) */
+    .sidebar {
+        grid-area: sidebar;
+        width: var(--sidebar-width-md);
+        height: 100vh;
+        position: sticky; 
+        top: 0;
+        padding: var(--space-lg) 0;
+        box-shadow: var(--shadow-lg);
+        z-index: var(--z-sidebar);
+    }
+    .sidebar-nav {
+        flex-direction: column;
+        overflow-x: hidden;
+        padding: var(--space-md) 0;
+        gap: var(--space-xs);
+    }
+    .logo-sidebar {
+        padding: 0 var(--space-lg);
+        margin-bottom: var(--space-xl);
+    }
+    .logo-sidebar .logo-text { display: block; }
+
+    .nav-item {
+        padding: var(--space-sm) var(--space-lg);
+        font-size: var(--font-size-base);
+        border-bottom: none;
+        border-left: 3px solid transparent; 
+        text-align: left;
+        border-radius: 0; /* Hilangkan radius untuk efek full-width di sidebar */
+    }
+    .nav-item i { display: inline-block; margin-right: var(--space-sm); }
+    .nav-item.active { 
+        border-left-color: var(--color-primary); 
+        border-bottom-color: transparent;
+        background-color: rgba(255, 255, 255, 0.1); 
+    }
+    .nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Content */
+    .content-area { 
+        grid-area: content;
+        padding: var(--space-xl); 
+    }
+    .content-controls { 
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    /* Grid Khusus */
+    #nilai-content .stats-grid {
+        grid-template-columns: 1fr 1.2fr 1fr; 
+        align-items: flex-end; 
+    }
+    #jadwal-content .stats-grid {
+        grid-template-columns: repeat(3, minmax(180px, 1fr)); 
+    }
+    #jadwal-content .content-box:last-child {
+        grid-column: span 3 / auto; 
+    }
+    #jadwal-content .piket-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+}
+
+/* Desktop Besar (min-width: 1200px) */
+@media (min-width: 1200px) {
+    :root { 
+        --sidebar-width-md: 280px; /* Lebar sidebar lebih besar */
+        --content-max-width: 1300px;
+    }
+    .content-area { 
+        max-width: var(--content-max-width); 
+        margin: 0 auto; 
+        padding: var(--space-xl) var(--space-lg); 
+    }
+}
+
+
+/* ==================================================================== */
+/* 5. COMPONENTS & INTERACTIVITY (CLEAN & MODERN) */
+/* ==================================================================== */
+
+/* Content Boxes & Cards (Minimalis & Elevated) */
+.content-box {
+    background-color: var(--bg-content);
+    padding: var(--space-lg);
+    border-radius: var(--border-radius); 
+    box-shadow: var(--shadow-base);
+    transition: box-shadow var(--transition-base), transform var(--transition-base); 
+    margin-bottom: var(--space-lg);
+    border: 1px solid var(--border-color); /* Border ringan */
+}
+/* Menghilangkan translateY agar tidak ada reflow */
+.content-box:hover {
+    box-shadow: var(--shadow-lg); 
+    transform: none; 
+}
+
+/* Statistik Grid (Dasbor & Jadwal Pelajaran) */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+/* Gaya Kartu Pelajaran/Peringkat (Visual Menarik) */
+.stat-card {
+    padding: var(--space-lg); 
+    border-radius: var(--border-radius);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow var(--transition-base), opacity var(--transition-base);
+    cursor: pointer;
+    line-height: 1.4;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid transparent;
+}
+.stat-card:hover {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) inset; /* Outline putih saat hover */
+    opacity: 0.95;
+}
+
+/* Skema Warna Gradient Lebih Menonjol */
+.stat-card.primary { background: linear-gradient(135deg, var(--color-primary), #0056b3); }
+.stat-card.warning { 
+    background: linear-gradient(135deg, var(--color-warning), #e0a800); 
+    color: var(--text-color-primary); 
+}
+.stat-card.success { background: linear-gradient(135deg, var(--color-success), #1e7e34); }
+.stat-card.info { background: linear-gradient(135deg, var(--color-info), #117a8b); } /* Warna info baru */
+
+/* Nilai/Peringkat Text (Lebih Jelas) */
+.stat-value { font-size: 3.5rem; font-weight: 900; line-height: 1; margin-bottom: var(--space-xs); }
+.stat-label { font-size: 1rem; opacity: 1; font-weight: 600; }
+.stat-icon { font-size: 6rem; opacity: 0.1; position: absolute; bottom: -30px; right: -20px; } 
+
+/* Tombol Global (Profesional & Minimalis) */
+.action-btn { 
+    background-color: var(--color-primary); 
+    color: white; 
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-sm);
+}
+.action-btn:hover { 
+    background-color: #0056b3; 
+    box-shadow: var(--shadow-base);
+}
+.action-btn.secondary {
+    background-color: var(--color-secondary);
+}
+.action-btn.secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Tabel Data (Lebih Rapi dan Responsive) */
+.data-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: var(--space-lg);
+}
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden; 
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+}
+.data-table th, .data-table td {
+    padding: var(--space-md); 
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+.data-table th {
+    background-color: var(--bg-main); /* Menggunakan warna latar utama untuk header tabel */
+    color: var(--text-color-primary); 
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px; /* Sedikit spasi */
+}
+.data-table tr:hover {
+    background-color: #f0f3f5;
+}
+body.dark-mode .data-table tr:hover { background-color: #2a2a2a; }
+body.dark-mode .data-table th { background-color: #1a1a1a; }
+
+
+/* ==================================================================== */
+/* 6. ADVANCED UI COMPONENTS (Fungsional) */
+/* ==================================================================== */
+
+/* Progress Bar (Lebih Penuh Warna) */
+.progress-container {
+    height: var(--space-sm);
+    background-color: var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-xs);
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background-color: var(--color-success); 
+    border-radius: var(--radius-sm);
+    transition: width 0.4s ease-in-out, background-color var(--transition-base);
+}
+
+/* ==================================================================== */
+/* 7. UTILITY CLASSES (SPACING SYSTEM) */
+/* ==================================================================== */
+
+/* Margin Bottom */
+.mb-xs { margin-bottom: var(--space-xs); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+/* Padding */
+.p-sm { padding: var(--space-sm); }
+.p-md { padding: var(--space-md); }
+.p-lg { padding: var(--space-lg); }
+
+/* Flexbox */
+.d-flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.align-center { align-items: center; }
+.flex-column { flex-direction: column; }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+
+
+/* ==================================================================== */
+/* 8. MOBILE ADJUSTMENTS (FINAL TOUCHES) */
+/* ==================================================================== */
+
+@media (max-width: 767px) {
+    /* Penyesuaian Mobile: Menggunakan border-color untuk pemisah */
+    .content-area { padding: var(--space-md); }
+    .content-box { 
+        box-shadow: none; 
+        padding: var(--space-md); 
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border-color); 
+        margin-bottom: var(--space-md);
+    }
+    .content-box:hover {
+        box-shadow: none;
+        transform: none;
+    }
+
+    .stats-grid { gap: var(--space-sm); }
+    .stat-card { padding: var(--space-md); border-radius: var(--radius-sm); } 
+    .stat-value { font-size: 2.2rem; } 
+    .stat-label { font-size: var(--font-size-small); }
+    .stat-icon { font-size: 3rem; }
+
+    /* Jadwal Pelajaran (2 kolom di HP) */
+    #jadwal-content .stats-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: var(--space-sm);
+    }
+    
+    /* Jadwal Piket (1 kolom penuh) */
+    #jadwal-content .content-box:last-child {
+        grid-column: span 1 / auto;
+    }
+    /* Piket Detail (2 kolom saja di HP) */
+    #jadwal-content .piket-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-sm);
+    }
+    #jadwal-content .piket-grid .stat-card {
+        padding: var(--space-sm);
+        line-height: 1.2;
+    }
+    #jadwal-content .piket-grid .stat-card h4 {
+        font-size: var(--font-size-small);
+        margin-bottom: 3px;
+    }
+    #jadwal-content .piket-grid .stat-card p {
+        font-size: var(--font-size-tiny); 
+    }
+    
+    /* Tabel scrollable */
+    .data-table { min-width: 600px; }
+}
+
